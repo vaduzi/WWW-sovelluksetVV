@@ -1,0 +1,94 @@
+<!-- VIIKKOTEHTÄVÄ 4 -->
+<!-- VALTTERI VEIJALAINEN -->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Ostoslista</title>
+  <meta charset="UTF-8">
+  
+  <!-- CSS-koodi -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="style.css" rel="stylesheet"
+  
+  <!-- JS-koodi -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+
+</head>
+
+<body>
+<main>
+  <h1 class="center light blue accent-4">Ostoslista</h1> <!-- materializen otsikko-->
+  <div class="container js-instance"></div>
+  
+  
+  <div id="app">
+    <div class="col s4 center "> <!-- keskitys, niin saadaan -->
+	
+      <div class="form__item">
+	    <input
+        type="text" v-model="uusiSana"
+        class="form__field"
+        placeholder="Tallenna ostos" />
+  
+      <button class="button green" v-on:click="add">Lisaa</button>
+	
+	
+  
+      <ul class="list" v-if="lista.length">
+	    <li class="list__item" 
+		  v-for="(sana, osa) in lista">
+		    <!-- <ul v-bind:src="lista.ostos"></ul> V-BIND YRITYS, MUTTA EI TOIMI-->
+	      {{ sana }} <!--templaatti-->
+		  <a class="waves-effect waves-light btn" v-on:click="removeItem(index)">Poista</a>
+	    </li>
+          
+      </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--Javascript-koodi. Koodini toimii ainoastaan tällä tavalla, eli jouduin
+      liittämään JS-koodini tämän html-tiedoston lopuksi. Ongelma on todennäköisesti
+	  Vuen instanssin asennuksessa.-->
+  
+  <script>
+    new Vue({
+      el: '.js-instance',
+      name: 'vue-instance',
+    })
+    var app = new Vue ({
+	  el: "#app",
+	  name: 'ostoslista',
+	
+	  data: {
+	    uusiSana: '', 	
+		
+	    lista: [
+		  ],
+	  },	
+
+
+	  mounted() {},
+
+	  methods: {
+		
+	    removeItem(index) {
+		  this.lista.splice(index, 1);
+			  },
+	
+		  add() {
+			  if (this.uusiSana === '') {
+				  return;
+			  }
+	    this.lista.push(this.uusiSana);
+	    this.uusiSana = '';
+	  },
+    },
+  });
+  </script>	
+</body>
+</html>
